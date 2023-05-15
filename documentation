@@ -1,0 +1,95 @@
+monitoring:
+-------------
+ELK/EFK Architecutre
+----------------------
+Elastic Search, Log stash, kibana
+Elastic Search, file beat, kibana
+
+recommended for elastic search is 'C series" instance type
+
+server1----------Beats-------shipsTo----Elastic-----visualize the data----kibana
+                                         ^
+server2----------Beats-------            |parse, filter & transform
+                            |---logstash-|
+server3----------Beats-------
+
+
+why do we use logs:
+-------------------
+to reduce the time
+suppose if we have 100 ec2's and we get some issue we don't know which one is giving the issue, we can't login each ec2 and check it consumes lot of time so,inorder to overcome that we use logging 
+
+
+logs:
+access_log
+error_log
+
+/var/log/httpd/ -- for apache
+
+log rotation:*** logs keep changing based on time and file size
+--------------
+1.time based
+2.size based
+
+access_log.month.date.hours.min.secs---- time based
+access_log.month.date.hours.min.secs.size --size based
+
+kibana does indexing
+
+rpm--radhat package manager
+
+df -h --> to check storage usage
+
+how to check which folder is consuming more storage in place---> du -sh *|sort -n
+
+to check memory usage -- free -m
+
+to nullify any file: >
+
+to make symlink:
+-----------------
+if you make a symlink, if you upgrade the version we can link the new download file & we can use it 
+*****
+always take backup of the file when you are gonna modify it
+
+to changer ownership ----chown -R ec2-user:ec2-user...
+
+
+127.0.0.1:9300
+port 9300 is binded to 120.0.0.1
+it will work on only in this ip address
+
+
+when you execute the shell script with filename.sh if you get permission denied
+check the owner and permission(it should have read, write &execute) without doing all this
+you can run as sh filename.sh
+
+
+to make alias
+----------------
+alias kibana ="path/fileName.sh" -- this is temparory
+
+to make permanent alias:
+----------------------
+your home diretory
+.bashrc
+at the end before unset
+after edit runsource.basgrc
+
+check user specific command---ex: which kibana
+
+watch -n 
+
+steps:
+-------
+filebeat
+
+filebeat.yaml:
+---------------
+provide ES url
+provide logs path
+provide index
+
+to debug shell script:
+---------------------
+sh -x file.sh
